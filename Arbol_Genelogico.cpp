@@ -213,19 +213,19 @@ int main() {
                 eliminarMiembroPrompt(raiz); // Eliminar miembro existente
                 break;
             case 3:
-                cout << "Buscar miembro" << "\n"; // Pendiente por implementar
+                cout << "Buscar miembro" << "\n"; 
                 break;
             case 4:
-                cout << "Visualizar árbol" << "\n"; // Pendiente por implementar
+                cout << "Visualizar árbol" << "\n";
                 break;
             case 5:
-                cout << "Mostrar ancestros" << "\n"; // Pendiente por implementar
+                cout << "Mostrar ancestros" << "\n"; 
                 break;
             case 6:
-                cout << "Mostrar descendientes" << "\n"; // Pendiente por implementar
+                cout << "Mostrar descendientes" << "\n"; 
                 break;
             case 7:
-                cout << "Verificar pertenencia a rama" << "\n"; // Pendiente por implementar
+                cout << "Verificar pertenencia a rama" << "\n"; 
                 break;
             case 0:
                 guardarArbolEnArchivo(raiz); // Guardar antes de salir
