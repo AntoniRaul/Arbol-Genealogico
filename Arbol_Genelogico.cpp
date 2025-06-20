@@ -24,9 +24,9 @@ void agregarMiembro(Nodo*& raiz) {
     cout << "Ingrese el nombre completo: ";
     cin.ignore(); // Limpia el búfer para evitar problemas con getline
     getline(cin, nombre);
-    cout << "Ingrese el género: ";
+    cout << "Ingrese el genero: ";
     getline(cin, genero);
-    cout << "Ingrese la relación familiar: ";
+    cout << "Ingrese la relacion familiar: ";
     getline(cin, relacion);
 
     Nodo* nuevo = new Nodo(nombre, genero, relacion);
@@ -113,21 +113,21 @@ void eliminarMiembroPrompt(Nodo*& raiz) {
     getline(cin, nombre);
 
     if (!eliminarMiembro(raiz, nombre)) {
-        cout << "Miembro no encontrado en el árbol." << endl;
+        cout << "Miembro no encontrado en el arbol." << endl;
     }
 }
 
 void mostrarMenu() {
     cout << "===== MENU ARBOL GENEALOGICO =====" << "\n";
-    cout << "1. Agregar miembro al árbol genealógico" << "\n";
-    cout << "2. Eliminar miembro del árbol genealógico" << "\n";
+    cout << "1. Agregar miembro al arbol genealogico" << "\n";
+    cout << "2. Eliminar miembro del arbol genealogico" << "\n";
     cout << "3. Buscar miembro" << "\n";
-    cout << "4. Visualizar el árbol (recorridos)" << "\n";
+    cout << "4. Visualizar el arbol (recorridos)" << "\n";
     cout << "5. Mostrar ancestros" << "\n";
     cout << "6. Mostrar descendientes" << "\n";
     cout << "7. Verificar pertenencia a una rama" << "\n";
     cout << "0. Salir" << "\n";
-    cout << "Seleccione una opción: ";
+    cout << "Seleccione una opcion: ";
 }
 
 // Función recursiva para guardar el árbol en un archivo
@@ -149,7 +149,7 @@ void guardarArbolEnArchivo(Nodo* raiz) {
     }
     guardarArbol(raiz, archivo);
     archivo.close();
-    cout << "Árbol guardado correctamente en 'arbol.txt'." << endl;
+    cout << "Arbol guardado correctamente en 'arbol.txt'." << endl;
 }
 
 // Función para insertar un nuevo nodo en el árbol genealógico
@@ -216,7 +216,7 @@ int main() {
                 cout << "Buscar miembro" << "\n"; 
                 break;
             case 4:
-                cout << "Visualizar árbol" << "\n";
+                cout << "Visualizar arbol" << "\n";
                 break;
             case 5:
                 cout << "Mostrar ancestros" << "\n"; 
@@ -232,7 +232,7 @@ int main() {
                 cout << "Saliendo..." << "\n";
                 break;
             default:
-                cout << "Opción inválida. Intente de nuevo." << "\n";
+                cout << "Opcion invalida. Intente de nuevo." << "\n";
         }
         cout << endl;
     } while(opcion != 0); // Repetir mientras no se elija salir
