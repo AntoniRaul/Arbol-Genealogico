@@ -351,19 +351,19 @@ int main() {
                 eliminarMiembroPrompt(raiz);
                 break;
             case 3:
-                cout << "Buscar miembro" << endl;
+                buscarMiembroPrompt(raiz);
                 break;
             case 4:
-    		visualizarArbol(raiz);
-    		break;
+                visualizarArbol(raiz); 
+                break;
             case 5:
-                cout << "Mostrar ancestros" << endl;
+                mostrarAncestrosPrompt(raiz);
                 break;
             case 6:
-                cout << "Mostrar descendientes" << endl;
+                mostrarDescendientesPrompt(raiz);
                 break;
             case 7:
-                cout << "Verificar pertenencia a rama" << endl;
+                
                 break;
             case 0:
                 // Guardar datos antes de salir
