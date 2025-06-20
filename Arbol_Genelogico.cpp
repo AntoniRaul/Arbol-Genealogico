@@ -212,7 +212,29 @@ void eliminarMiembroPrompt(Nodo*& raiz) {
 void visualizarArbol(Nodo*& raiz) {
 	
 }
+// Recorrido Inorden: izquierda -> raíz -> derecha
+void recorridoInorden(Nodo* raiz) {
+    if (raiz == NULL) return;
+    recorridoInorden(raiz->izquierda);
+    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
+    recorridoInorden(raiz->derecha);
+}
 
+// Recorrido Preorden: raíz -> izquierda -> derecha
+void recorridoPreorden(Nodo* raiz) {
+    if (raiz == NULL) return;
+    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
+    recorridoPreorden(raiz->izquierda);
+    recorridoPreorden(raiz->derecha);
+}
+
+// Recorrido Postorden: izquierda -> derecha -> raíz
+void recorridoPostorden(Nodo* raiz) {
+    if (raiz == NULL) return;
+    recorridoPostorden(raiz->izquierda);
+    recorridoPostorden(raiz->derecha);
+    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
+}
 void mostrarMenu() {
     cout << "===== MENU ARBOL GENEALOGICO =====" << endl;
     cout << "1. Agregar miembro al arbol genealogico" << endl;
@@ -286,7 +308,31 @@ void cargarArbolDesdeArchivo(Nodo*& raiz) {
     archivo.close();
     cout << "Arbol cargado correctamente desde 'arbol.txt'." << endl;
 }
+// Función para mostrar opciones de recorrido del árbol
+void visualizarArbol(Nodo* raiz) {
+    int opcion;
+    cout << "=== Visualización del Árbol Genealógico ===" << endl;
+    cout << "1. Recorrido Inorden (ordenado alfabéticamente)" << endl;
+    cout << "2. Recorrido Preorden (estructura de árbol)" << endl;
+    cout << "3. Recorrido Postorden (descendientes primero)" << endl;
+    cout << "Seleccione un tipo de recorrido: ";
+    cin >> opcion;
 
+    cout << "\nResultado del recorrido:" << endl;
+    switch(opcion) {
+        case 1:
+            recorridoInorden(raiz);
+            break;
+        case 2:
+            recorridoPreorden(raiz);
+            break;
+        case 3:
+            recorridoPostorden(raiz);
+            break;
+        default:
+            cout << "Opción inválida." << endl;
+    }
+}
 int main() {
     Nodo* raiz = NULL;
     int opcion;
@@ -308,8 +354,8 @@ int main() {
                 cout << "Buscar miembro" << endl;
                 break;
             case 4:
-                cout << "Visualizar arbol" << endl;
-                break;
+    		visualizarArbol(raiz);
+    		break;
             case 5:
                 cout << "Mostrar ancestros" << endl;
                 break;
