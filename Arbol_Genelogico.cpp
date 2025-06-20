@@ -63,7 +63,7 @@ bool eliminarMiembro(Nodo*& raiz, const string& nombre) {
     if (raiz == NULL) {
         return false; // No se encontró el miembro
     }
-
+// Buscar por nombre en el subárbol izquierdo o derecho
     if (nombre < raiz->nombreCompleto) {
         return eliminarMiembro(raiz->izquierda, nombre);
     } else if (nombre > raiz->nombreCompleto) {
