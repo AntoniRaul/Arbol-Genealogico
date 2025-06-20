@@ -4,41 +4,40 @@
 #include <sstream>
 using namespace std;
 
-// Estructura para un nodo del árbol genealógico
+// Estructura para un nodo del arbol genealogico
 struct Nodo {
     string nombreCompleto;      // Nombre completo del miembro
-    string genero;              // Género del miembro
-    string relacionFamiliar;    // Relación familiar (ej: padre, madre, hijo)
-    Nodo* izquierda;            // Puntero al hijo izquierdo (menor alfabéticamente)
-    Nodo* derecha;              // Puntero al hijo derecho (mayor alfabéticamente)
+    string genero;              // Genero del miembro
+    string relacionFamiliar;    // Relacion familiar
+    Nodo* izquierda;            // Puntero al hijo izquierdo
+    Nodo* derecha;              // Puntero al hijo derecho
 
     // Constructor para inicializar los datos del nodo
     Nodo(string nombre, string gen, string relacion)
         : nombreCompleto(nombre), genero(gen), relacionFamiliar(relacion), izquierda(NULL), derecha(NULL) {}
 };
 
-// Función para agregar un nuevo miembro al árbol genealógico
+// Funcion para agregar un nuevo miembro al arbol genealogico
 
 void agregarMiembro(Nodo*& raiz) {
     string nombre, genero, relacion;
     cout << "Ingrese el nombre completo: ";
-    cin.ignore(); // Limpia el búfer para evitar problemas con getline
-    getline(cin, nombre);
+    cin >> nombre; // Usa cin para leer el nombre
     cout << "Ingrese el genero: ";
-    getline(cin, genero);
+    cin >> genero; // Usa cin para leer el genero
     cout << "Ingrese la relacion familiar: ";
-    getline(cin, relacion);
+    cin >> relacion; // Usa cin para leer la relacion
 
     Nodo* nuevo = new Nodo(nombre, genero, relacion);
 
-    // Si el árbol está vacío, el nuevo nodo será la raíz
+    // Si el arbol esta vacio, el nuevo nodo sera la raiz
     if (raiz == NULL) {
         raiz = nuevo;
-        cout << "Miembro agregado como raíz del árbol." << endl;
+        cout << "Miembro agregado como raiz del arbol." << endl;
         return;
     }
 
-    // Busca la posición correcta para insertar el nuevo nodo
+    // Busca la posicion correcta para insertar el nuevo nodo
     Nodo* actual = raiz;
     Nodo* padre = NULL;
     while (actual != NULL) {
@@ -48,7 +47,7 @@ void agregarMiembro(Nodo*& raiz) {
         else
             actual = actual->derecha;
     }
-    // Inserta el nuevo nodo como hijo izquierdo o derecho según corresponda
+    // Inserta el nuevo nodo como hijo izquierdo o derecho segun corresponda
     if (nombre < padre->nombreCompleto)
         padre->izquierda = nuevo;
     else
@@ -57,13 +56,13 @@ void agregarMiembro(Nodo*& raiz) {
     cout << "Miembro agregado correctamente." << endl;
 }
 
-// Función recursiva para eliminar un miembro del árbol genealógico
+// Funcion recursiva para eliminar un miembro del arbol genealagico
 
 bool eliminarMiembro(Nodo*& raiz, const string& nombre) {
     if (raiz == NULL) {
-        return false; // No se encontró el miembro
+        return false; // No se encontro el miembro
     }
-// Buscar por nombre en el subárbol izquierdo o derecho
+
     if (nombre < raiz->nombreCompleto) {
         return eliminarMiembro(raiz->izquierda, nombre);
     } else if (nombre > raiz->nombreCompleto) {
@@ -105,32 +104,129 @@ bool eliminarMiembro(Nodo*& raiz, const string& nombre) {
     }
 }
 
-// Función para solicitar al usuario el nombre del miembro a eliminar y llamar a la función de eliminación
+// Función para buscar un miembro en el árbol
+Nodo* buscarMiembro(Nodo* raiz, const string& nombre) {
+    if (raiz == NULL || raiz->nombreCompleto == nombre) {
+        return raiz;
+    }
+    if (nombre < raiz->nombreCompleto) {
+        return buscarMiembro(raiz->izquierda, nombre);
+    } else {
+        return buscarMiembro(raiz->derecha, nombre);
+    }
+}
+
+// Función para mostrar los datos de un miembro encontrado
+void buscarMiembroPrompt(Nodo* raiz) {
+    string nombre;
+    cout << "Ingrese el nombre completo del miembro a buscar: ";
+    cin >> nombre; // Usa cin para leer el nombre directamente
+
+    Nodo* encontrado = buscarMiembro(raiz, nombre);
+    if (encontrado != NULL) {
+        cout << "\n=== Miembro Encontrado ===" << endl;
+        cout << "Nombre: " << encontrado->nombreCompleto << endl;
+        cout << "Género: " << encontrado->genero << endl;
+        cout << "Relación: " << encontrado->relacionFamiliar << endl;
+    } else {
+        cout << "Miembro no encontrado en el árbol." << endl;
+    }
+}
+
+// Función para mostrar los ancestros de un miembro (camino desde la raíz hasta el nodo)
+void mostrarAncestros(Nodo* raiz, const string& nombre) {
+    if (raiz == NULL) {
+        cout << "Miembro no encontrado." << endl;
+        return;
+    }
+    if (raiz->nombreCompleto == nombre) {
+        cout << "=== Ancestros de " << nombre << " ===" << endl;
+        return;
+    }
+    cout << raiz->nombreCompleto << " -> ";
+    if (nombre < raiz->nombreCompleto) {
+        mostrarAncestros(raiz->izquierda, nombre);
+    } else {
+        mostrarAncestros(raiz->derecha, nombre);
+    }
+}
+
+// Función para solicitar el nombre del miembro y mostrar sus ancestros
+void mostrarAncestrosPrompt(Nodo* raiz) {
+    string nombre;
+    cout << "Ingrese el nombre completo del miembro para ver sus ancestros: ";
+    cin >> nombre; // Usa cin para leer el nombre directamente
+
+    if (buscarMiembro(raiz, nombre) == NULL) {
+        cout << "Miembro no encontrado." << endl;
+        return;
+    }
+    mostrarAncestros(raiz, nombre);
+}
+
+// Función auxiliar para recorrer y mostrar todos los descendientes de un nodo (inorden)
+void mostrarDescendientesRec(Nodo* nodo) {
+    if (nodo == NULL) return;
+    mostrarDescendientesRec(nodo->izquierda);
+    cout << "- " << nodo->nombreCompleto << " (" << nodo->relacionFamiliar << ")" << endl;
+    mostrarDescendientesRec(nodo->derecha);
+}
+
+// Función para mostrar los descendientes de un miembro
+void mostrarDescendientes(Nodo* raiz, const string& nombre) {
+    Nodo* miembro = buscarMiembro(raiz, nombre);
+    if (miembro == NULL) {
+        cout << "Miembro no encontrado." << endl;
+        return;
+    }
+    cout << "\n=== Descendientes de " << nombre << " ===" << endl;
+    if (miembro->izquierda == NULL && miembro->derecha == NULL) {
+        cout << "No tiene descendientes." << endl;
+    } else {
+        mostrarDescendientesRec(miembro->izquierda);
+        mostrarDescendientesRec(miembro->derecha);
+    }
+}
+
+// Función para solicitar el nombre del miembro y mostrar sus descendientes
+void mostrarDescendientesPrompt(Nodo* raiz) {
+    string nombre;
+    cout << "Ingrese el nombre completo del miembro para ver sus descendientes: ";
+    cin >> nombre; // Usa cin para leer el nombre directamente
+
+    mostrarDescendientes(raiz, nombre);
+}
+
+
+// Funcion para solicitar al usuario el nombre del miembro a eliminar y llamar a la funcion de eliminacion
 void eliminarMiembroPrompt(Nodo*& raiz) {
     string nombre;
     cout << "Ingrese el nombre completo del miembro a eliminar: ";
-    cin.ignore();
-    getline(cin, nombre);
+    cin >> nombre; // Usa cin para leer el nombre directamente
 
     if (!eliminarMiembro(raiz, nombre)) {
         cout << "Miembro no encontrado en el arbol." << endl;
     }
 }
 
-void mostrarMenu() {
-    cout << "===== MENU ARBOL GENEALOGICO =====" << "\n";
-    cout << "1. Agregar miembro al arbol genealogico" << "\n";
-    cout << "2. Eliminar miembro del arbol genealogico" << "\n";
-    cout << "3. Buscar miembro" << "\n";
-    cout << "4. Visualizar el arbol (recorridos)" << "\n";
-    cout << "5. Mostrar ancestros" << "\n";
-    cout << "6. Mostrar descendientes" << "\n";
-    cout << "7. Verificar pertenencia a una rama" << "\n";
-    cout << "0. Salir" << "\n";
-    cout << "Seleccione una opcion: ";
+void visualizarArbol(Nodo*& raiz) {
+	
 }
 
-// Función recursiva para guardar el árbol en un archivo
+void mostrarMenu() {
+    cout << "===== MENU ARBOL GENEALOGICO =====" << endl;
+    cout << "1. Agregar miembro al arbol genealogico" << endl;
+    cout << "2. Eliminar miembro del arbol genealogico" << endl;
+    cout << "3. Buscar miembro" << endl;
+    cout << "4. Visualizar el arbol (recorridos)" << endl;
+    cout << "5. Mostrar ancestros" << endl;
+    cout << "6. Mostrar descendientes" << endl;
+    cout << "7. Verificar pertenencia a una rama" << endl;
+    cout << "0. Salir" << endl;
+    cout << "Seleccione una opcian: ";
+}
+
+// Funcion recursiva para guardar el arbol en un archivo
 
 void guardarArbol(Nodo* raiz, ofstream& archivo) {
     if (raiz == NULL) return;
@@ -139,7 +235,7 @@ void guardarArbol(Nodo* raiz, ofstream& archivo) {
     guardarArbol(raiz->derecha, archivo);
 }
 
-// Función para guardar el árbol genealógico en un archivo de texto
+// Funcion para guardar el arbol genealogico en un archivo de texto
 
 void guardarArbolEnArchivo(Nodo* raiz) {
     ofstream archivo("arbol.txt");
@@ -149,10 +245,10 @@ void guardarArbolEnArchivo(Nodo* raiz) {
     }
     guardarArbol(raiz, archivo);
     archivo.close();
-    cout << "Arbol guardado correctamente en 'arbol.txt'." << endl;
+    cout << "arbol guardado correctamente en 'arbol.txt'." << endl;
 }
 
-// Función para insertar un nuevo nodo en el árbol genealógico
+// Funcion para insertar un nuevo nodo en el arbol genealogico
 void insertarNodo(Nodo*& raiz, const string& nombre, const string& genero, const string& relacion) {
     Nodo* nuevo = new Nodo(nombre, genero, relacion);
     if (raiz == NULL) {
@@ -174,116 +270,65 @@ void insertarNodo(Nodo*& raiz, const string& nombre, const string& genero, const
         padre->derecha = nuevo;
 }
 
-// Función para cargar el árbol genealógico desde un archivo de texto
+// Funcion para cargar el arbol genealogico desde un archivo de texto
 void cargarArbolDesdeArchivo(Nodo*& raiz) {
     ifstream archivo("arbol.txt");
     if (!archivo.is_open()) {
         cout << "No se pudo abrir el archivo para cargar." << endl;
         return;
     }
-    string linea;
-    while (getline(archivo, linea)) {
-        stringstream ss(linea);
-        string nombre, genero, relacion;
-        getline(ss, nombre, '|');
-        getline(ss, genero, '|');
-        getline(ss, relacion, '|');
+
+    string nombre, genero, relacion;
+    while (archivo >> nombre >> genero >> relacion) { // Leer directamente usando >>
         insertarNodo(raiz, nombre, genero, relacion);
     }
+
     archivo.close();
-    cout << "Árbol cargado correctamente desde 'arbol.txt'." << endl;
-}
-// Recorrido Inorden: izquierda -> raíz -> derecha
-void recorridoInorden(Nodo* raiz) {
-    if (raiz == NULL) return;
-    recorridoInorden(raiz->izquierda);
-    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
-    recorridoInorden(raiz->derecha);
-}
-
-// Recorrido Preorden: raíz -> izquierda -> derecha
-void recorridoPreorden(Nodo* raiz) {
-    if (raiz == NULL) return;
-    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
-    recorridoPreorden(raiz->izquierda);
-    recorridoPreorden(raiz->derecha);
-}
-
-// Recorrido Postorden: izquierda -> derecha -> raíz
-void recorridoPostorden(Nodo* raiz) {
-    if (raiz == NULL) return;
-    recorridoPostorden(raiz->izquierda);
-    recorridoPostorden(raiz->derecha);
-    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
-}
-// Función para mostrar opciones de recorrido del árbol
-void visualizarArbol(Nodo* raiz) {
-    int opcion;
-    cout << "=== Visualización del Arbol Genealógico ===" << endl;
-    cout << "1. Recorrido Inorden (ordenado alfabeticamente)" << endl;
-    cout << "2. Recorrido Preorden (estructura de arbol)" << endl;
-    cout << "3. Recorrido Postorden (descendientes primero)" << endl;
-    cout << "Seleccione un tipo de recorrido: ";
-    cin >> opcion;
-
-    cout << "\nResultado del recorrido:" << endl;
-    switch(opcion) {
-        case 1:
-            recorridoInorden(raiz);
-            break;
-        case 2:
-            recorridoPreorden(raiz);
-            break;
-        case 3:
-            recorridoPostorden(raiz);
-            break;
-        default:
-            cout << "Opción inválida." << endl;
-    }
+    cout << "Arbol cargado correctamente desde 'arbol.txt'." << endl;
 }
 
 int main() {
-    Nodo* raiz = NULL; // Árbol vacío al inicio
+    Nodo* raiz = NULL;
     int opcion;
 
-    // Cargar árbol previamente guardado si existe
+    // Cargar datos al iniciar
     cargarArbolDesdeArchivo(raiz);
 
-    // Menú interactivo principal
     do {
         mostrarMenu();
         cin >> opcion;
         switch(opcion) {
             case 1:
-                agregarMiembro(raiz); // Agregar nuevo miembro
+                agregarMiembro(raiz);
                 break;
             case 2:
-                eliminarMiembroPrompt(raiz); // Eliminar miembro existente
+                eliminarMiembroPrompt(raiz);
                 break;
             case 3:
-                cout << "Buscar miembro" << "\n"; 
+                cout << "Buscar miembro" << endl;
                 break;
             case 4:
-                visualizarArbol(raiz);
+                cout << "Visualizar arbol" << endl;
                 break;
             case 5:
-                cout << "Mostrar ancestros" << "\n"; 
+                cout << "Mostrar ancestros" << endl;
                 break;
             case 6:
-                cout << "Mostrar descendientes" << "\n"; 
+                cout << "Mostrar descendientes" << endl;
                 break;
             case 7:
-                cout << "Verificar pertenencia a rama" << "\n"; 
+                cout << "Verificar pertenencia a rama" << endl;
                 break;
             case 0:
-                guardarArbolEnArchivo(raiz); // Guardar antes de salir
-                cout << "Saliendo..." << "\n";
+                // Guardar datos antes de salir
+                guardarArbolEnArchivo(raiz);
+                cout << "Saliendo..." << endl;
                 break;
             default:
-                cout << "Opcion invalida. Intente de nuevo." << "\n";
+                cout << "Opcion invalida. Intente de nuevo." << endl;
         }
         cout << endl;
-    } while(opcion != 0); // Repetir mientras no se elija salir
+    } while(opcion != 0);
 
     return 0;
 }
