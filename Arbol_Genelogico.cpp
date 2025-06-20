@@ -195,47 +195,47 @@ void cargarArbolDesdeArchivo(Nodo*& raiz) {
 }
 
 int main() {
-    Nodo* raiz = NULL;
+    Nodo* raiz = NULL; // Árbol vacío al inicio
     int opcion;
 
-    // Cargar datos al iniciar
+    // Cargar árbol previamente guardado si existe
     cargarArbolDesdeArchivo(raiz);
 
+    // Menú interactivo principal
     do {
         mostrarMenu();
         cin >> opcion;
         switch(opcion) {
             case 1:
-                agregarMiembro(raiz);
+                agregarMiembro(raiz); // Agregar nuevo miembro
                 break;
             case 2:
-                eliminarMiembroPrompt(raiz);
+                eliminarMiembroPrompt(raiz); // Eliminar miembro existente
                 break;
             case 3:
-                cout << "Buscar miembro" << endl;
+                cout << "Buscar miembro" << "\n"; // Pendiente por implementar
                 break;
             case 4:
-                cout << "Visualizar árbol" << endl;
+                cout << "Visualizar árbol" << "\n"; // Pendiente por implementar
                 break;
             case 5:
-                cout << "Mostrar ancestros" << endl;
+                cout << "Mostrar ancestros" << "\n"; // Pendiente por implementar
                 break;
             case 6:
-                cout << "Mostrar descendientes" << endl;
+                cout << "Mostrar descendientes" << "\n"; // Pendiente por implementar
                 break;
             case 7:
-                cout << "Verificar pertenencia a rama" << endl;
+                cout << "Verificar pertenencia a rama" << "\n"; // Pendiente por implementar
                 break;
             case 0:
-                // Guardar datos antes de salir
-                guardarArbolEnArchivo(raiz);
-                cout << "Saliendo..." << endl;
+                guardarArbolEnArchivo(raiz); // Guardar antes de salir
+                cout << "Saliendo..." << "\n";
                 break;
             default:
-                cout << "Opción inválida. Intente de nuevo." << endl;
+                cout << "Opción inválida. Intente de nuevo." << "\n";
         }
         cout << endl;
-    } while(opcion != 0);
+    } while(opcion != 0); // Repetir mientras no se elija salir
 
     return 0;
 }
