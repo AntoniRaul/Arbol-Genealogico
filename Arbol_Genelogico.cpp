@@ -118,15 +118,15 @@ void eliminarMiembroPrompt(Nodo*& raiz) {
 }
 
 void mostrarMenu() {
-    cout << "===== MENU ARBOL GENEALOGICO =====" << endl;
-    cout << "1. Agregar miembro al árbol genealógico" << endl;
-    cout << "2. Eliminar miembro del árbol genealógico" << endl;
-    cout << "3. Buscar miembro" << endl;
-    cout << "4. Visualizar el árbol (recorridos)" << endl;
-    cout << "5. Mostrar ancestros" << endl;
-    cout << "6. Mostrar descendientes" << endl;
-    cout << "7. Verificar pertenencia a una rama" << endl;
-    cout << "0. Salir" << endl;
+    cout << "===== MENU ARBOL GENEALOGICO =====" << "\n";
+    cout << "1. Agregar miembro al árbol genealógico" << "\n";
+    cout << "2. Eliminar miembro del árbol genealógico" << "\n";
+    cout << "3. Buscar miembro" << "\n";
+    cout << "4. Visualizar el árbol (recorridos)" << "\n";
+    cout << "5. Mostrar ancestros" << "\n";
+    cout << "6. Mostrar descendientes" << "\n";
+    cout << "7. Verificar pertenencia a una rama" << "\n";
+    cout << "0. Salir" << "\n";
     cout << "Seleccione una opción: ";
 }
 
