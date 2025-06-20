@@ -14,7 +14,7 @@ struct Nodo {
 
     // Constructor para inicializar los datos del nodo
     Nodo(string nombre, string gen, string relacion)
-        : nombreCompleto(nombre), genero(gen), relacionFamiliar(relacion), izquierda(nullptr), derecha(nullptr) {}
+        : nombreCompleto(nombre), genero(gen), relacionFamiliar(relacion), izquierda(NULL), derecha(NULL) {}
 };
 
 // Función para agregar un nuevo miembro al árbol genealógico
@@ -32,7 +32,7 @@ void agregarMiembro(Nodo*& raiz) {
     Nodo* nuevo = new Nodo(nombre, genero, relacion);
 
     // Si el árbol está vacío, el nuevo nodo será la raíz
-    if (raiz == nullptr) {
+    if (raiz == NULL) {
         raiz = nuevo;
         cout << "Miembro agregado como raíz del árbol." << endl;
         return;
@@ -40,8 +40,8 @@ void agregarMiembro(Nodo*& raiz) {
 
     // Busca la posición correcta para insertar el nuevo nodo
     Nodo* actual = raiz;
-    Nodo* padre = nullptr;
-    while (actual != nullptr) {
+    Nodo* padre = NULL;
+    while (actual != NULL) {
         padre = actual;
         if (nombre < actual->nombreCompleto)
             actual = actual->izquierda;
@@ -60,7 +60,7 @@ void agregarMiembro(Nodo*& raiz) {
 // Función recursiva para eliminar un miembro del árbol genealógico
 
 bool eliminarMiembro(Nodo*& raiz, const string& nombre) {
-    if (raiz == nullptr) {
+    if (raiz == NULL) {
         return false; // No se encontró el miembro
     }
 
@@ -70,15 +70,15 @@ bool eliminarMiembro(Nodo*& raiz, const string& nombre) {
         return eliminarMiembro(raiz->derecha, nombre);
     } else {
         // Nodo encontrado
-        if (raiz->izquierda == nullptr && raiz->derecha == nullptr) {
+        if (raiz->izquierda == NULL && raiz->derecha == NULL) {
             // Sin hijos
             cout << "El miembro \"" << raiz->nombreCompleto << "\" no tiene descendencia. Eliminando..." << endl;
             delete raiz;
-            raiz = nullptr;
-        } else if (raiz->izquierda == nullptr || raiz->derecha == nullptr) {
+            raiz = NULL;
+        } else if (raiz->izquierda == NULL || raiz->derecha == NULL) {
             // Un solo hijo
             cout << "ALERTA: El miembro \"" << raiz->nombreCompleto << "\" tiene descendencia. Eliminando y reubicando descendientes..." << endl;
-            Nodo* temp = (raiz->izquierda != nullptr) ? raiz->izquierda : raiz->derecha;
+            Nodo* temp = (raiz->izquierda != NULL) ? raiz->izquierda : raiz->derecha;
             delete raiz;
             raiz = temp;
         } else {
@@ -87,7 +87,7 @@ bool eliminarMiembro(Nodo*& raiz, const string& nombre) {
             // Buscar el sucesor inorden (el menor de la rama derecha)
             Nodo* sucesor = raiz->derecha;
             Nodo* padreSucesor = raiz;
-            while (sucesor->izquierda != nullptr) {
+            while (sucesor->izquierda != NULL) {
                 padreSucesor = sucesor;
                 sucesor = sucesor->izquierda;
             }
@@ -117,7 +117,6 @@ void eliminarMiembroPrompt(Nodo*& raiz) {
     }
 }
 
-
 void mostrarMenu() {
     cout << "===== MENU ARBOL GENEALOGICO =====" << endl;
     cout << "1. Agregar miembro al árbol genealógico" << endl;
@@ -134,7 +133,7 @@ void mostrarMenu() {
 // Función recursiva para guardar el árbol en un archivo
 
 void guardarArbol(Nodo* raiz, ofstream& archivo) {
-    if (raiz == nullptr) return;
+    if (raiz == NULL) return;
     guardarArbol(raiz->izquierda, archivo);
     archivo << raiz->nombreCompleto << "|" << raiz->genero << "|" << raiz->relacionFamiliar << endl;
     guardarArbol(raiz->derecha, archivo);
@@ -156,13 +155,13 @@ void guardarArbolEnArchivo(Nodo* raiz) {
 // Función para insertar un nuevo nodo en el árbol genealógico
 void insertarNodo(Nodo*& raiz, const string& nombre, const string& genero, const string& relacion) {
     Nodo* nuevo = new Nodo(nombre, genero, relacion);
-    if (raiz == nullptr) {
+    if (raiz == NULL) {
         raiz = nuevo;
         return;
     }
     Nodo* actual = raiz;
-    Nodo* padre = nullptr;
-    while (actual != nullptr) {
+    Nodo* padre = NULL;
+    while (actual != NULL) {
         padre = actual;
         if (nombre < actual->nombreCompleto)
             actual = actual->izquierda;
@@ -196,7 +195,7 @@ void cargarArbolDesdeArchivo(Nodo*& raiz) {
 }
 
 int main() {
-    Nodo* raiz = nullptr;
+    Nodo* raiz = NULL;
     int opcion;
 
     // Cargar datos al iniciar
