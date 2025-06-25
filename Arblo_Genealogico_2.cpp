@@ -62,7 +62,7 @@ void opcionAgregarHijo(Persona* raiz) {
     Persona* stack[100];
     int top = 0;
     stack[top++] = raiz;
-    Persona* padre = nullptr;
+    Persona* padre = NULL;
     while (top > 0) {
         Persona* actual = stack[--top];
         if (actual->nombre == nombrePadre) {
@@ -70,7 +70,7 @@ void opcionAgregarHijo(Persona* raiz) {
             break;
         }
         if (actual->hijoIzquierdo) stack[top++] = actual->hijoIzquierdo;
-        Persona* hermano = actual->hijoIzquierdo ? actual->hijoIzquierdo->hermanoDerecho : nullptr;
+        Persona* hermano = actual->hijoIzquierdo ? actual->hijoIzquierdo->hermanoDerecho : NULL;
         while (hermano) {
             stack[top++] = hermano;
             hermano = hermano->hermanoDerecho;
@@ -101,7 +101,7 @@ void opcionAgregarPadres(Persona* raiz) {
     Persona* stack[100];
     int top = 0;
     stack[top++] = raiz;
-    Persona* hijo = nullptr;
+    Persona* hijo = NULL;
     while (top > 0) {
         Persona* actual = stack[--top];
         if (actual->nombre == nombreHijo) {
@@ -109,7 +109,7 @@ void opcionAgregarPadres(Persona* raiz) {
             break;
         }
         if (actual->hijoIzquierdo) stack[top++] = actual->hijoIzquierdo;
-        Persona* hermano = actual->hijoIzquierdo ? actual->hijoIzquierdo->hermanoDerecho : nullptr;
+        Persona* hermano = actual->hijoIzquierdo ? actual->hijoIzquierdo->hermanoDerecho : NULL;
         while (hermano) {
             stack[top++] = hermano;
             hermano = hermano->hermanoDerecho;
@@ -139,7 +139,7 @@ void mostrarMenu() {
 }
 
 int main() {
-    Persona* raiz = nullptr; // Inicializa la raíz como nula
+    Persona* raiz = NULL; // Inicializa la raíz como NULL
     int opcion;
     do {
         mostrarMenu(); // Muestra el menú de opciones
