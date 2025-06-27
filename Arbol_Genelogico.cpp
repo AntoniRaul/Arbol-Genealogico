@@ -98,34 +98,6 @@ void visualizarArbol(Nodo* nodo, string prefijo = "", bool esUltimo = true) {
     }
 }
 
-// Recorrido inorden del árbol (hijos, nodo, hermanos).
-void recorridoInorden(Nodo* raiz) {
-    if (raiz == NULL) return; // Si el nodo es nulo, termina.
-    recorridoInorden(raiz->hijo); // Llama recursivamente para los hijos.
-    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
-    Nodo* hermano = raiz->hermano; 
-    while (hermano != NULL) { // Recorre los hermanos.
-        recorridoInorden(hermano);
-        hermano = hermano->hermano; // Pasa al siguiente hermano.
-    }
-}
-
-// Recorrido preorden del árbol (nodo, hijos, hermanos).
-void recorridoPreorden(Nodo* raiz) {
-    if (raiz == NULL) return;
-    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
-    recorridoPreorden(raiz->hijo);
-    recorridoPreorden(raiz->hermano);
-}
-
-// Recorrido postorden del árbol (hijos, nodo, hermanos).
-void recorridoPostorden(Nodo* raiz) {
-    if (raiz == NULL) return;
-    recorridoPostorden(raiz->hijo);
-    cout << raiz->nombreCompleto << " (" << raiz->relacionFamiliar << ", " << raiz->genero << ")" << endl;
-    recorridoPostorden(raiz->hermano);
-}
-
 // Guarda un nodo y sus descendientes en un archivo.
 void guardarNodo(Nodo* nodo, ofstream& archivo) {
     if (nodo == NULL) return;
